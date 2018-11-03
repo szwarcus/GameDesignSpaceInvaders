@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     private Transform bullet;
+    private int bulletScore = 10;
 
     public float speed;
 
@@ -30,7 +31,7 @@ public class BulletController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
-            // Increase Player Score too?
+            PlayerScore.playerScore += bulletScore;
         }
         else if (collision.tag == "Base")
         {
