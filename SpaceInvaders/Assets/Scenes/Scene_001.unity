@@ -8204,7 +8204,7 @@ MonoBehaviour:
   speed: 1
   shot: {fileID: 1921106863818606, guid: 947e9d94be94a4e4ebe1dbea502192d0, type: 2}
   winText: {fileID: 1434277867}
-  fireRate: 0.992
+  fireRate: 0.995
 --- !u!50 &832331298
 Rigidbody2D:
   serializedVersion: 4
