@@ -25,10 +25,10 @@ public class EnemyController : MonoBehaviour {
 
         foreach (Transform enemy in enemyHolder)
         {
-            if (enemy.position.x < -10.5 || enemy.position.x > 10.5)
+            if (enemy.position.x < -16.5 || enemy.position.x > 16.5)
             {
                 speed = -speed;
-                enemyHolder.position += Vector3.down * 0.5f;
+                enemyHolder.position += Vector3.down * 0.7f;
                 return;
             }
 
@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour {
             }
 
 
-            if (enemy.position.y <= -4)
+            if (enemy.position.y <= -5)
             {
                 GameOver.isPlayerDead = true;
                 Time.timeScale = 0;
