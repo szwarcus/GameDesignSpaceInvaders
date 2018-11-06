@@ -4,20 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
-    private Transform enemyHolder;
-    public float speed;
 
+    private Transform enemyHolder;
+    private GameObject spawnedEnemies;
+    public float speed;
+    
     public GameObject shot;
     public Text winText;
     public float fireRate = 0.997f;
+    public GameObject[] thePlatform;
+    // point out of the camera range that "trigger" creation of new map part
+    public float distanceBetween;
 
     // Use this for initialization
     void Start()
     {
         winText.enabled = false;
+        int indexChoosed = Random.Range(0, thePlatform.Length);
+        spawnedEnemies=Instantiate(thePlatform[indexChoosed], transform.position, transform.rotation);
+        spawnedEnemies.transform.parent = gameObject.transform;
+        enemyHolder = spawnedEnemies.GetComponent<Transform>() ;
         InvokeRepeating("MoveEnemy", 0.1f, 0.3f);
-        enemyHolder = GetComponent<Transform>();
+
     }
+
 
     void MoveEnemy()
     {
@@ -25,7 +35,7 @@ public class EnemyController : MonoBehaviour {
 
         foreach (Transform enemy in enemyHolder)
         {
-            if (enemy.position.x < -16.5 || enemy.position.x > 16.5)
+            if (enemy.position.x < -14.5 || enemy.position.x > 14.5)
             {
                 speed = -speed;
                 enemyHolder.position += Vector3.down * 0.7f;
@@ -50,10 +60,18 @@ public class EnemyController : MonoBehaviour {
             CancelInvoke();
             InvokeRepeating("MoveEnemy", 0.1f, 0.25f);
         }
-
         if (enemyHolder.childCount == 0)
         {
-            winText.enabled = true;
+            Destroy(spawnedEnemies);
+            CancelInvoke();
+            transform.position = new Vector3(0f, transform.position.y + distanceBetween, 0f);
+            int indexChoosed = Random.Range(0, thePlatform.Length);
+            Vector2 spawnPosition = new Vector2(0, 9);
+            spawnedEnemies = Instantiate(thePlatform[indexChoosed], spawnPosition, thePlatform[indexChoosed].transform.rotation);
+            spawnedEnemies.transform.parent = gameObject.transform;
+            enemyHolder = spawnedEnemies.GetComponent<Transform>();
+            InvokeRepeating("MoveEnemy", 0.1f, 0.3f);
         }
+
     }
 }
