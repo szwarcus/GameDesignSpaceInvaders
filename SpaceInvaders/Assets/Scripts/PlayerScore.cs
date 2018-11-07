@@ -13,11 +13,16 @@ public class PlayerScore : MonoBehaviour
 	void Start ()
     {
         scoreText = GetComponent<Text>();
-	}
+        scoreText.alignment = TextAnchor.UpperCenter;
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        scoreText.text = "Score: " + playerScore;	
+        string newPlayerScore= playerScore.ToString().PadLeft(playerScore.ToString().Length + 4, '0');
+        
+
+        scoreText.text = "SCORE:\n" + newPlayerScore;
+        
 	}
 }

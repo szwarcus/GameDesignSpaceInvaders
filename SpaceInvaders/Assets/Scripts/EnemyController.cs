@@ -11,7 +11,9 @@ public class EnemyController : MonoBehaviour {
     
     public GameObject shot;
     public Text winText;
+    public Text bonusText;
     public float fireRate = 0.997f;
+    public GameObject BonusPointText;
     public GameObject[] thePlatform;
     // point out of the camera range that "trigger" creation of new map part
     public float distanceBetween;
@@ -31,6 +33,8 @@ public class EnemyController : MonoBehaviour {
 
     void MoveEnemy()
     {
+        Time.timeScale = 1;
+        bonusText.enabled = false;
         enemyHolder.position += Vector3.right * speed;
 
         foreach (Transform enemy in enemyHolder)
@@ -66,11 +70,18 @@ public class EnemyController : MonoBehaviour {
             CancelInvoke();
             transform.position = new Vector3(0f, transform.position.y + distanceBetween, 0f);
             int indexChoosed = Random.Range(0, thePlatform.Length);
+            int bonusPoints= Random.Range(0, 10) * 50;
+            bonusText.text = "BONUS   " + bonusPoints.ToString()+ "   POINTS";
+            Time.timeScale = 0.2F;
+            bonusText.enabled = true;
+
+            PlayerScore.playerScore += bonusPoints;
             Vector2 spawnPosition = new Vector2(0, 9);
             spawnedEnemies = Instantiate(thePlatform[indexChoosed], spawnPosition, thePlatform[indexChoosed].transform.rotation);
             spawnedEnemies.transform.parent = gameObject.transform;
             enemyHolder = spawnedEnemies.GetComponent<Transform>();
             InvokeRepeating("MoveEnemy", 0.1f, 0.3f);
+
         }
 
     }
