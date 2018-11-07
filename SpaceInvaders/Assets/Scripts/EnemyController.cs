@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour {
             int indexChoosed = Random.Range(0, thePlatform.Length);
             int bonusPoints= Random.Range(0, 10) * 50;
             bonusText.text = "BONUS   " + bonusPoints.ToString()+ "   POINTS";
-            Time.timeScale = 0.2F;
+            
             bonusText.enabled = true;
 
             PlayerScore.playerScore += bonusPoints;
@@ -80,6 +80,7 @@ public class EnemyController : MonoBehaviour {
             spawnedEnemies = Instantiate(thePlatform[indexChoosed], spawnPosition, thePlatform[indexChoosed].transform.rotation);
             spawnedEnemies.transform.parent = gameObject.transform;
             enemyHolder = spawnedEnemies.GetComponent<Transform>();
+            Time.timeScale = 0.2F;
             InvokeRepeating("MoveEnemy", 0.1f, 0.3f);
 
         }
