@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,17 +13,21 @@ public class PlayerController : MonoBehaviour
     public float maxBound, minBound;
     public GameObject shot;
     public Transform shotSpawn;
-    public float fireRate;
+    public static float fireRate=0.5F;
 
-       
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start()
     {
+
         player = GetComponent<Transform>();
         rigid = GetComponent<Rigidbody2D>();
-	}
-	
-	void FixedUpdate ()
+
+
+
+    }
+
+    void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
 
@@ -42,15 +46,15 @@ public class PlayerController : MonoBehaviour
         float fHorizontalVelocity = rigid.velocity.x;
 
         fHorizontalVelocity += h;
-        if(Mathf.Abs(h)<0.01f)
-            fHorizontalVelocity *= Mathf.Pow(1f - 0.00001f, Time.deltaTime * 10f);
-        else if (Mathf.Sign(h) !=Mathf.Sign(fHorizontalVelocity))
-                fHorizontalVelocity *= Mathf.Pow(1f - 0.009f, Time.deltaTime * 10f);
+        if (Mathf.Abs(h) < 0.01f)
+            fHorizontalVelocity *= Mathf.Pow(1f - 0.2f, Time.deltaTime * 10f);
+        else if (Mathf.Sign(h) != Mathf.Sign(fHorizontalVelocity))
+            fHorizontalVelocity *= Mathf.Pow(1f - 0.009f, Time.deltaTime * 10f);
         else
-            fHorizontalVelocity *= Mathf.Pow(1f - 0.3f, Time.deltaTime * 10f);
+            fHorizontalVelocity *= Mathf.Pow(1f - 0.4f, Time.deltaTime * 10f);
         rigid.velocity = new Vector2(fHorizontalVelocity, rigid.velocity.y);
         //player.position += Vector3.right * h * speed;
-	}
+    }
 
     private void Update()
     {
@@ -60,4 +64,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
         }
     }
+
+ 
+
 }
