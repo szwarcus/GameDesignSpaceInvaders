@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
@@ -9,18 +7,18 @@ public class GameOver : MonoBehaviour
 
     public static bool isPlayerDead = false;
 
-	void Start ()
+    void Start()
     {
         gameOver = GetComponent<Text>();
         gameOver.enabled = false;
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
-	    if (isPlayerDead)
+        if (isPlayerDead)
         {
             Time.timeScale = 0;
             gameOver.enabled = true;
         }
-	}
+    }
 }
