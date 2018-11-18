@@ -13,9 +13,9 @@ public class BaseDefeat : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if (playerBase.childCount == 0)
-        {
-            GameOver.isPlayerDead = true;
-        }
+		//if (playerBase.childCount == 0)
+  //      {
+  //          GameOver.isPlayerDead = true;
+  //      }
 	}
 }
